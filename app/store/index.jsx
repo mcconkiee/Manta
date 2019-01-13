@@ -15,9 +15,17 @@ import ContactsMW from '../middlewares/ContactsMW';
 import InvoicesMW from '../middlewares/InvoicesMW';
 import SettingsMW from '../middlewares/SettingsMW';
 import UIMiddleware from '../middlewares/UIMiddleware';
+import RemoteSyncMiddleware from '../middlewares/RemoteSync';
 
 // Default Middlewares
-const middlewares = [FormMW, ContactsMW, InvoicesMW, SettingsMW, UIMiddleware];
+const middlewares = [
+  FormMW,
+  ContactsMW,
+  InvoicesMW,
+  SettingsMW,
+  UIMiddleware,
+  RemoteSyncMiddleware,
+];
 
 // Dev Mode Middlewares
 if (isDev) {

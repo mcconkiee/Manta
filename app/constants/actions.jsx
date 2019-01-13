@@ -42,6 +42,10 @@ export const SETTINGS_SAVE = 'SETTINGS_SAVE';
 export const SETTINGS_UPDATE = 'SETTINGS_UPDATE';
 export const SETTINGS_GET_INITIAL = 'SETTINGS_GET_INITIAL';
 
+// SYNC
+// ===========================================================
+export const SYNC_DB = 'SYNC_DB';
+
 // UI
 // ===========================================================
 export const UI_TAB_CHANGE = 'UI_TAB_CHANGE';

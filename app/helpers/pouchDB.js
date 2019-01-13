@@ -1,5 +1,7 @@
 // Setup PouchDB
+const syncToAnything = require('pouchdb-sync-to-anything');
 const PouchDB = require('pouchdb-browser');
+PouchDB.plugin(syncToAnything);
 const contactsDB = new PouchDB('contacts');
 const invoicesDB = new PouchDB('invoices');
 
@@ -96,7 +98,7 @@ const invoicesMigrations = {
       customAccentColor: accentColor.useCustom,
     });
     return Object.assign({}, doc, {
-      configs: migratedConfigs
+      configs: migratedConfigs,
     });
   },
 };
@@ -134,6 +136,22 @@ const setDB = dbName =>
       });
     }
   });
+
+// synca All Documents to firestore
+const syncAllDocs = () =>
+  invoicesDB.syncToAnything(
+    docs => {
+      console.log(docs, 'syncAllDocs');
+      return new Promise((resolve, reject) => {
+        if (docs) {
+          resolve(docs);
+        } else {
+          reject(new Error('no docs found'));
+        }
+      });
+    },
+    { syncId: 'firestoreSync' }
+  );
 
 // Get All Document
 const getAllDocs = dbName =>
@@ -202,4 +220,4 @@ const updateDoc = (dbName, updatedDoc) =>
       .catch(err => reject(err));
   });
 
-export { getAllDocs, getSingleDoc, deleteDoc, saveDoc, updateDoc };
+export { getAllDocs, getSingleDoc, deleteDoc, saveDoc, updateDoc, syncAllDocs };

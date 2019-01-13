@@ -10,6 +10,7 @@ import * as FormActions from './actions/form';
 import * as SettingsActions from './actions/settings';
 import * as InvoicesActions from './actions/invoices';
 import * as ContactsActions from './actions/contacts';
+import * as RemoteSyncActions from './actions/remoteSync';
 
 // Components
 import AppNav from './components/layout/AppNav';
@@ -32,6 +33,7 @@ class App extends PureComponent {
     dispatch(ContactsActions.getAllContacts());
     dispatch(InvoicesActions.getInvoices());
     dispatch(SettingsActions.getInitalSettings());
+    dispatch(RemoteSyncActions.syncDb());
     // Add Event Listener
     ipc.on('menu-change-tab', (event, tabName) => {
       this.changeTab(tabName);
@@ -82,7 +84,7 @@ class App extends PureComponent {
       'menu-form-toggle-note',
       'menu-form-toggle-settings',
       // Save template configs to invoice
-      'save-configs-to-invoice'
+      'save-configs-to-invoice',
     ]);
   }
 
