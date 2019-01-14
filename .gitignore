@@ -1,4 +1,6 @@
 .env
+setup.sh
+/config/index.js
 /node_modules
 /coverage
 /dist
