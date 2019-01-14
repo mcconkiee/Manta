@@ -8,7 +8,7 @@ const invoicesDB = new PouchDB('invoices');
 // Utility
 import { omit } from 'lodash';
 import { syncCollection } from './remoteSync';
-const async = require('async');
+
 // Handle Data Migration
 async function runMigration(db, version, migrations, done) {
   try {
