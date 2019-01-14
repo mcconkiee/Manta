@@ -45,6 +45,8 @@ export const SETTINGS_GET_INITIAL = 'SETTINGS_GET_INITIAL';
 // SYNC
 // ===========================================================
 export const SYNC_DB = 'SYNC_DB';
+export const SYNC_DB_SUCCESS = 'SYNC_DB_SUCCESS';
+export const SYNC_ERROR = 'SYNC_ERROR';
 
 // UI
 // ===========================================================

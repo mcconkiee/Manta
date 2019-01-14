@@ -7,7 +7,8 @@ const invoicesDB = new PouchDB('invoices');
 
 // Utility
 import { omit } from 'lodash';
-
+import { syncCollection } from './remoteSync';
+const async = require('async');
 // Handle Data Migration
 async function runMigration(db, version, migrations, done) {
   try {
@@ -137,21 +138,25 @@ const setDB = dbName =>
     }
   });
 
-// synca All Documents to firestore
-const syncAllDocs = () =>
-  invoicesDB.syncToAnything(
+const syncDb = (db, syncId, callback) =>
+  db.syncToAnything(
     docs => {
-      console.log(docs, 'syncAllDocs');
+      callback(docs);
       return new Promise((resolve, reject) => {
-        if (docs) {
-          resolve(docs);
-        } else {
-          reject(new Error('no docs found'));
-        }
+        resolve(docs);
       });
     },
-    { syncId: 'firestoreSync' }
+    { syncId }
   );
+
+// synca All Documents to firestore
+const syncRemoteDocs = () =>
+  Promise.all([
+    syncDb(invoicesDB, 'invoiceSync', docs => syncCollection('invoices', docs)),
+    syncDb(contactsDB, 'contactsSync', docs =>
+      syncCollection('contacts', docs)
+    ),
+  ]);
 
 // Get All Document
 const getAllDocs = dbName =>
@@ -220,4 +225,11 @@ const updateDoc = (dbName, updatedDoc) =>
       .catch(err => reject(err));
   });
 
-export { getAllDocs, getSingleDoc, deleteDoc, saveDoc, updateDoc, syncAllDocs };
+export {
+  getAllDocs,
+  getSingleDoc,
+  deleteDoc,
+  saveDoc,
+  updateDoc,
+  syncRemoteDocs,
+};

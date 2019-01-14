@@ -5,27 +5,26 @@ import uuidv4 from 'uuid/v4';
 import * as ACTION_TYPES from '../constants/actions.jsx';
 
 // Helpers
-import { syncAllDocs } from '../helpers/pouchDB';
-import i18n from '../../i18n/i18n';
-
+import { syncRemoteDocs } from '../helpers/pouchDB';
 const RemoteSyncMW = ({ dispatch }) => next => action => {
   switch (action.type) {
     case ACTION_TYPES.SYNC_DB: {
-      return syncAllDocs()
-        .then(allDocs => {
+      return syncRemoteDocs()
+        .then(syncResults => {
+          dispatch({
+            type: ACTION_TYPES.SYNC_DB_SUCCESS,
+            payload: { syncResults },
+          });
           next(
             Object.assign({}, action, {
-              payload: allDocs,
+              payload: syncResults,
             })
           );
         })
         .catch(err => {
-          next({
-            type: ACTION_TYPES.UI_NOTIFICATION_NEW,
-            payload: {
-              type: 'warning',
-              message: err.message,
-            },
+          dispatch({
+            type: ACTION_TYPES.SYNC_ERROR,
+            payload: err,
           });
         });
     }
