@@ -33,7 +33,8 @@ class App extends PureComponent {
     dispatch(ContactsActions.getAllContacts());
     dispatch(InvoicesActions.getInvoices());
     dispatch(SettingsActions.getInitalSettings());
-    dispatch(RemoteSyncActions.syncDb());
+    dispatch(RemoteSyncActions.syncDb()); // firestore
+    dispatch(RemoteSyncActions.syncDbRemote());
     // Add Event Listener
     ipc.on('menu-change-tab', (event, tabName) => {
       this.changeTab(tabName);

@@ -1,32 +1,28 @@
-/**
- * Firestore layer to sync docs remotely
- */
-import * as firebase from 'firebase';
-// FIXME - extract to private config
 import config from '../../config';
-firebase.initializeApp(config.firebase);
+const PouchDB = require('pouchdb-browser');
+const endpoint = config.aws.url;
 
-const db = firebase.firestore();
-const settings = { /* your settings... */ timestampsInSnapshots: true };
-db.settings(settings);
-
-export const syncCollection = (collection, dataCollection) => {
-  const batch = db.batch();
-  dataCollection.forEach((dataObject, idx) => {
-    const uid = `doc_${idx}`;
-    const doc = db.collection(collection).doc(uid); // FIXME - is that a guearantee that all objects have created_at?
-    if (dataObject) {
-      batch.set(doc, dataObject);
-    } else {
-      // remove this idx
-      batch.delete(doc);
-    }
+export const sync = (fromDB, toDB) => {
+  const sendTo = new PouchDB(`${endpoint}/${toDB}`);
+  return new Promise((resolve, reject) => {
+    fromDB
+      .sync(sendTo)
+      .on('change', change => {
+        // yo, something changed!
+      })
+      .on('paused', info => {
+        // replication was paused, usually because of a lost connection
+      })
+      .on('active', info => {
+        // replication was resumed
+      })
+      .on('complete', () => {
+        // yay, we're in sync!
+        resolve();
+      })
+      .on('error', err => {
+        // boo, we hit an error!
+        reject(err);
+      });
   });
-  // Commit the batch
-  return batch.commit();
-};
-
-export const sync = (key, data) => {
-  const keys = Object.keys(data);
-  return Promise.all(keys.map(key => syncCollection(key, data[key])));
 };

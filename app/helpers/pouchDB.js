@@ -7,7 +7,8 @@ const invoicesDB = new PouchDB('invoices');
 
 // Utility
 import { omit } from 'lodash';
-import { syncCollection } from './remoteSync';
+import { syncCollection } from './firestoreSync';
+import { sync } from './remoteSync';
 
 // Handle Data Migration
 async function runMigration(db, version, migrations, done) {
@@ -158,6 +159,10 @@ const syncRemoteDocs = () =>
     ),
   ]);
 
+// synca All Documents to firestore
+const syncRemoteDocsWithCouch = endpoint =>
+  Promise.all([sync(invoicesDB, 'invoices'), sync(contactsDB, 'contacts')]);
+
 // Get All Document
 const getAllDocs = dbName =>
   new Promise((resolve, reject) => {
@@ -232,4 +237,5 @@ export {
   saveDoc,
   updateDoc,
   syncRemoteDocs,
+  syncRemoteDocsWithCouch,
 };
