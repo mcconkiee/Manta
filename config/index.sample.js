@@ -11,9 +11,5 @@ const config = {
     storageBucket: 'mantainvoice.appspot.com',
     messagingSenderId: 'xxx',
   },
-  aws: {
-    url:
-      'http://username:password@ec2-xx-xx-xx-xx.compute-1.amazonaws.com:5984',
-  },
 };
 export default config;

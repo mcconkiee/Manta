@@ -1,7 +1,5 @@
 const PouchDB = require('pouchdb-browser');
 const appConfig = require('electron').remote.require('electron-settings');
-import config from '../../config';
-const endpoint = config.aws.url;
 
 export const sync = (fromDB, toDB) => {
   const config = appConfig.get('sync');
