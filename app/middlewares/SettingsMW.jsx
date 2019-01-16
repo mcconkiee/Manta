@@ -17,6 +17,7 @@ const SettingsMW = ({ dispatch }) => next => action => {
         profile: appConfig.get('profile'),
         invoice: appConfig.get('invoice'),
         general: appConfig.get('general'),
+        sync: appConfig.get('sync'),
       };
       return next(
         Object.assign({}, action, {
@@ -51,6 +52,7 @@ const SettingsMW = ({ dispatch }) => next => action => {
       appConfig.set('profile', action.payload.profile);
       appConfig.set('invoice', action.payload.invoice);
       appConfig.set('general', action.payload.general);
+      appConfig.set('sync', action.payload.sync);
       // Reload Sounds Cache
       sounds.preload();
       // Continue

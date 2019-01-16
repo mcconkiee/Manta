@@ -30,6 +30,7 @@ import {
   PageContent,
 } from '../components/shared/Layout';
 import _withFadeInAnimation from '../components/shared/hoc/_withFadeInAnimation';
+import Sync from '../components/settings/Sync';
 
 // Component
 class Settings extends Component {
@@ -59,14 +60,14 @@ class Settings extends Component {
 
   // controls if save button appears
   setSavable(settingsValid) {
-    this.setState({canSave: settingsValid});
+    this.setState({ canSave: settingsValid });
   }
 
   // Render Main Content
   renderSettingsContent() {
     const { t } = this.props;
     const { updateSettings } = this.props.boundActionCreators;
-    const { profile, general, invoice } = this.props.currentSettings;
+    const { profile, general, invoice, sync } = this.props.currentSettings;
     return (
       <PageWrapper>
         <PageHeader>
@@ -102,16 +103,46 @@ class Settings extends Component {
             >
               {t('settings:tabs:general')}
             </Tab>
+            <Tab
+              href="#"
+              className={this.state.visibleTab === 4 ? 'active' : ''}
+              onClick={() => this.changeTab(4)}
+            >
+              {t('settings:tabs:sync')}
+            </Tab>
           </Tabs>
           <TabContent>
             {this.state.visibleTab === 1 && (
-              <Profile t={t} profile={profile} updateSettings={updateSettings} setSavable={this.setSavable} />
+              <Profile
+                t={t}
+                profile={profile}
+                updateSettings={updateSettings}
+                setSavable={this.setSavable}
+              />
             )}
             {this.state.visibleTab === 2 && (
-              <Invoice t={t} invoice={invoice} updateSettings={updateSettings} setSavable={this.setSavable} />
+              <Invoice
+                t={t}
+                invoice={invoice}
+                updateSettings={updateSettings}
+                setSavable={this.setSavable}
+              />
             )}
             {this.state.visibleTab === 3 && (
-              <General t={t} general={general} updateSettings={updateSettings} setSavable={this.setSavable} />
+              <General
+                t={t}
+                general={general}
+                updateSettings={updateSettings}
+                setSavable={this.setSavable}
+              />
+            )}
+            {this.state.visibleTab === 4 && (
+              <Sync
+                t={t}
+                sync={sync}
+                updateSettings={updateSettings}
+                setSavable={this.setSavable}
+              />
             )}
           </TabContent>
         </PageContent>
@@ -146,7 +177,10 @@ const mapStateToProps = state => ({
 });
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   translate(),
   _withFadeInAnimation
 )(Settings);

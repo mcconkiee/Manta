@@ -3,7 +3,8 @@
   "tabs": {
     "profile": "Profile",
     "invoice": "Invoice",
-    "general": "General"
+    "general": "General",
+    "sync": "Sync"
   },
   "fields": {
     "logo": {
@@ -16,6 +17,7 @@
     "pdfExportDir": "PDF Export Directory",
     "requiredFields": "Required Fields",
     "sound": "Sound",
+    "couchDBUrl": "CouchDB Url",
     "mute": "Mute",
     "autoCheckUpdate": {
       "name": "Auto Check for Update",
