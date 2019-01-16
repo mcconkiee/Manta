@@ -35,7 +35,6 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
       );
       break;
     }
-    case ACTION_TYPES.SYNC_DB_SUCCESS:
     case ACTION_TYPES.INVOICE_GET_ALL: {
       return getAllDocs('invoices')
         .then(allDocs => {

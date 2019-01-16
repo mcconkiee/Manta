@@ -58,10 +58,7 @@ class Contacts extends PureComponent {
         type: 'warning',
         title: t('dialog:deleteContact:title'),
         message: t('dialog:deleteContact:message'),
-        buttons: [
-          t('common:yes'),
-          t('common:noThanks')
-        ],
+        buttons: [t('common:yes'), t('common:noThanks')],
       },
       'confirmed-delete-contact',
       contactId

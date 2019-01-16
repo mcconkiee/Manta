@@ -10,8 +10,7 @@ const InvoicesReducer = handleActions(
       Actions.saveInvoiceConfigs,
       Actions.updateInvoice,
       Actions.deleteInvoice,
-      Actions.setInvoiceStatus,
-      RemoteActions.syncDbSuccess
+      Actions.setInvoiceStatus
     )]: (state, action) => action.payload,
   },
   []

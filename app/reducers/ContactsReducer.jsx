@@ -8,8 +8,7 @@ const ContactsReducer = handleActions(
     [combineActions(
       Actions.getAllContacts,
       Actions.saveContact,
-      Actions.deleteContact,
-      RemoteActions.syncDbSuccess
+      Actions.deleteContact
     )]: (state, action) => action.payload,
   },
   []

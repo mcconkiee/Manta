@@ -8,8 +8,7 @@ export const sync = (fromDB, toDB) => {
     fromDB
       .sync(sendTo)
       .on('change', change => {
-        // yo, something changed!
-        resolve({ time: new Date().getTime(), db: toDB, change });
+        // resolve({ time: new Date().getTime(), db: toDB, change });
       })
       .on('paused', info => {
         // replication was paused, usually because of a lost connection
