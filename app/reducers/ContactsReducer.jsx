@@ -1,13 +1,15 @@
 import { handleActions, combineActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import * as Actions from '../actions/contacts';
+import * as RemoteActions from '../actions/remoteSync';
 
 const ContactsReducer = handleActions(
   {
     [combineActions(
       Actions.getAllContacts,
       Actions.saveContact,
-      Actions.deleteContact
+      Actions.deleteContact,
+      RemoteActions.syncDbSuccess
     )]: (state, action) => action.payload,
   },
   []

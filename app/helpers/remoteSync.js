@@ -9,6 +9,7 @@ export const sync = (fromDB, toDB) => {
       .sync(sendTo)
       .on('change', change => {
         // yo, something changed!
+        resolve({ time: new Date().getTime(), db: toDB, change });
       })
       .on('paused', info => {
         // replication was paused, usually because of a lost connection
@@ -18,7 +19,7 @@ export const sync = (fromDB, toDB) => {
       })
       .on('complete', () => {
         // yay, we're in sync!
-        resolve();
+        resolve({ time: new Date().getTime(), db: toDB });
       })
       .on('error', err => {
         // boo, we hit an error!

@@ -4,6 +4,7 @@ import FormReducer from './FormReducer';
 import InvoicesReducer from './InvoicesReducer';
 import ContactsReducer from './ContactsReducer';
 import SettingsReducer from './SettingsReducer';
+import RemoteSyncReducer from './RemoteSync';
 
 export default combineReducers({
   ui: UIReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   invoices: InvoicesReducer,
   contacts: ContactsReducer,
   settings: SettingsReducer,
+  remoteSync: RemoteSyncReducer,
 });

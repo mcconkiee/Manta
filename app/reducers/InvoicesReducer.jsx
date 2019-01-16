@@ -1,7 +1,7 @@
 import { handleActions, combineActions } from 'redux-actions';
 import { createSelector } from 'reselect';
 import * as Actions from '../actions/invoices';
-
+import * as RemoteActions from '../actions/remoteSync';
 const InvoicesReducer = handleActions(
   {
     [combineActions(
@@ -10,7 +10,8 @@ const InvoicesReducer = handleActions(
       Actions.saveInvoiceConfigs,
       Actions.updateInvoice,
       Actions.deleteInvoice,
-      Actions.setInvoiceStatus
+      Actions.setInvoiceStatus,
+      RemoteActions.syncDbSuccess
     )]: (state, action) => action.payload,
   },
   []

@@ -10,6 +10,7 @@ import i18n from '../../i18n/i18n';
 
 const ContactsMW = ({ dispatch }) => next => action => {
   switch (action.type) {
+    case ACTION_TYPES.SYNC_DB_SUCCESS:
     case ACTION_TYPES.CONTACT_GET_ALL: {
       return getAllDocs('contacts')
         .then(allDocs => {

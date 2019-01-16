@@ -12,7 +12,13 @@ import * as FormActions from '../actions/form';
 
 // Helpers
 import { getInvoiceValue } from '../helpers/invoice';
-import { getAllDocs, getSingleDoc, saveDoc, deleteDoc, updateDoc } from '../helpers/pouchDB';
+import {
+  getAllDocs,
+  getSingleDoc,
+  saveDoc,
+  deleteDoc,
+  updateDoc,
+} from '../helpers/pouchDB';
 
 const InvoicesMW = ({ dispatch, getState }) => next => action => {
   switch (action.type) {
@@ -29,7 +35,7 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
       );
       break;
     }
-
+    case ACTION_TYPES.SYNC_DB_SUCCESS:
     case ACTION_TYPES.INVOICE_GET_ALL: {
       return getAllDocs('invoices')
         .then(allDocs => {
@@ -86,8 +92,8 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
           next(
             Object.assign({}, action, {
               payload: Object.assign({}, action.payload, {
-                contacts: allDocs
-              })
+                contacts: allDocs,
+              }),
             })
           );
           // Change Tab to Form
@@ -143,7 +149,7 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
         created_at: Date.now(),
         _id: uuidv4(),
         _rev: null,
-      })
+      });
       return dispatch({
         type: ACTION_TYPES.INVOICE_SAVE,
         payload: duplicateInvoice,
@@ -182,8 +188,8 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
         .then(doc => {
           dispatch({
             type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: Object.assign({}, doc, {configs})
-          })
+            payload: Object.assign({}, doc, { configs }),
+          });
         })
         .catch(err => {
           next({
@@ -202,8 +208,8 @@ const InvoicesMW = ({ dispatch, getState }) => next => action => {
         .then(doc => {
           dispatch({
             type: ACTION_TYPES.INVOICE_UPDATE,
-            payload: Object.assign({}, doc, { status })
-          })
+            payload: Object.assign({}, doc, { status }),
+          });
         })
         .catch(err => {
           next({

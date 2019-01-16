@@ -4,7 +4,7 @@ import * as Actions from '../actions/remoteSync';
 
 const RemoteSynceReducer = handleActions(
   {
-    [combineActions(Actions.syncDb)]: (state, action) => action.payload,
+    [combineActions(Actions.syncDbRemote)]: (state, action) => action.payload,
   },
   []
 );
